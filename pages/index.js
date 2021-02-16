@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Header from "../components/Header";
+import PostCard from "../components/PostCard/PostCard";
 
 export default function Home() {
   return (
@@ -10,6 +11,7 @@ export default function Home() {
       </Head>
 
       <Header />
+      <PostCard />
     </div>
   );
 }
