@@ -7,6 +7,8 @@ const Home = () => {
     <Flex maxW="975px" mx="auto">
       <Box w="610px" as="section">
         <PostCard />
+        <PostCard />
+        <PostCard />
       </Box>
 
       <Aside />

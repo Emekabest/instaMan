@@ -7,7 +7,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 
-function Modal({ children, renderCloseBtn, renderOpenBtn }) {
+function Modal({ children, renderOpenBtn, ...rest }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleOpen = () => onOpen();
@@ -17,12 +17,11 @@ function Modal({ children, renderCloseBtn, renderOpenBtn }) {
     <>
       {renderOpenBtn(handleOpen)}
 
-      <ModalUI isOpen={isOpen} onClose={onClose}>
+      <ModalUI isOpen={isOpen} onClose={onClose} isCentered {...rest}>
         <ModalOverlay />
 
-        <ModalContent>
-          <ModalBody p={0}>{children}</ModalBody>
-          {renderCloseBtn(handleClose)}
+        <ModalContent bg="none">
+          <ModalBody p={0}>{children(handleClose)}</ModalBody>
         </ModalContent>
       </ModalUI>
     </>
@@ -30,11 +29,10 @@ function Modal({ children, renderCloseBtn, renderOpenBtn }) {
 }
 
 Modal.propTypes = {
-  children: PropTypes.element.isRequired,
   /**
-   * `function` with `handleClose` param, that @returns a button for closing the Modal
+   * `function` with `handleClose` param, that @returns the content(element) of the Modal
    */
-  renderCloseBtn: PropTypes.func,
+  children: PropTypes.func.isRequired,
   /**
    * `function` with `handleOpen` param, that @returns a button for opening the Modal
    */

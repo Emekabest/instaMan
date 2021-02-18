@@ -1,5 +1,13 @@
 import { useState } from "react";
-import { Box, Flex, Image, Stack, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  IconButton,
+  Image,
+  Stack,
+  Text,
+} from "@chakra-ui/react";
 import { FaUserCircle } from "react-icons/fa";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { VscComment } from "react-icons/vsc";
@@ -10,6 +18,7 @@ import Comment from "./Comment/Comment";
 import Heart from "./Heart";
 import useLove from "../../../hooks/useLove";
 import UserPhoto from "../../User/UserPhoto";
+import Modal from "../../Modal/Modal";
 
 const hasLocation = 1;
 
@@ -17,6 +26,66 @@ const spacing = {
   py: 2,
   px: 4,
 };
+
+const ModalContent = ({ onClose }) => (
+  <Flex flexDir="column" bg="white" rounded="lg" overflow="hidden">
+    <Button
+      variant="ghost"
+      borderBottom="1px"
+      rounded="none"
+      fontSize="sm"
+      size="lg"
+      _focus={{ outline: "none" }}
+      color="red.500"
+      borderColor="black"
+    >
+      Report
+    </Button>
+    <Button
+      variant="ghost"
+      borderBottom="1px"
+      rounded="none"
+      fontSize="sm"
+      size="lg"
+      _focus={{ outline: "none" }}
+      color="red.500"
+      borderColor="black"
+    >
+      Unfollow
+    </Button>
+    <Button
+      variant="ghost"
+      borderBottom="1px"
+      rounded="none"
+      fontSize="sm"
+      size="lg"
+      _focus={{ outline: "none" }}
+    >
+      Go to posts
+    </Button>
+    <Button
+      variant="ghost"
+      borderBottom="1px"
+      rounded="none"
+      fontSize="sm"
+      size="lg"
+      _focus={{ outline: "none" }}
+    >
+      Copy post link
+    </Button>
+    <Button
+      variant="ghost"
+      borderBottom="1px"
+      rounded="none"
+      fontSize="sm"
+      size="lg"
+      _focus={{ outline: "none" }}
+      onClick={onClose}
+    >
+      Cancel
+    </Button>
+  </Flex>
+);
 
 const PostCard = () => {
   const { isLoved, handleIsLoveChange } = useLove();
@@ -31,7 +100,7 @@ const PostCard = () => {
       borderColor="gray.300"
       rounded="sm"
       bg="white"
-      mb={4}
+      mb={10}
     >
       <Flex
         as="header"
@@ -56,7 +125,15 @@ const PostCard = () => {
           </Box>
         </Flex>
         <Box>
-          <HiOutlineDotsHorizontal />
+          <Modal
+            renderOpenBtn={(handleOpen) => (
+              <IconButton onClick={handleOpen} isRound variant="ghost">
+                <HiOutlineDotsHorizontal />
+              </IconButton>
+            )}
+          >
+            {(handleClose) => <ModalContent onClose={handleClose} />}
+          </Modal>
         </Box>
       </Flex>
 
